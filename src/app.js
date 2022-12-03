@@ -24,7 +24,7 @@ app.use(express.static('public'))
 
 app.use('/data', require('./router/data.router'));
 app.get('/', (req, res) => {
-    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+    res.send('Hello world')
 })
 
 module.exports = app;
