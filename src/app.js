@@ -22,6 +22,9 @@ db.mongoose.connect(db.uri, {
 });
 
 app.use('/data', require('./router/data.router'));
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World!');
+})
 
 app.listen(PORT, () => {
     console.log(`server running on : http://localhost:${PORT}`);
