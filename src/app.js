@@ -1,15 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT || 5000;
 const db = require('./models');
 require('dotenv').config();
 
 const app = express();
-
-app.use(express.json());
-app.use(cors({
-    origin: '*',
-}));
 
 db.mongoose.connect(db.uri, {
     useNewUrlParser: true,
@@ -21,13 +15,15 @@ db.mongoose.connect(db.uri, {
     process.exit();
 });
 
+app.use(express.json());
+app.use(cors({
+    origin: '*',
+}));
+app.use(express.static('public'))
+
 app.use('/data', require('./router/data.router'));
 app.get('/', (req, res) => {
-    res.status(200).send('Hello World!');
-})
-
-app.listen(PORT, () => {
-    console.log(`server running on : http://localhost:${PORT}`);
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 })
 
 module.exports = app;
